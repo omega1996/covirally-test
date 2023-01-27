@@ -2,7 +2,10 @@
 
     <div class="card-list">
         <div class="card-list__container">
-            <draggable animation="200" class="list-group" :list="list" group="people" itemKey="name">
+            <div @click="addList(true)" class="card-list__add-list">
+                +
+            </div>
+            <draggable animation="200" class="card-list__list-group" :list="list" group="people" itemKey="name">
                 <template #header>
                     <div class="card-list__header">
 
@@ -18,6 +21,7 @@
                     <button class="card-list__add-button" @click="add">Добавить</button>
                 </template>
             </draggable>
+            <div @click="addList(false)" class="card-list__add-list">+</div>
 
         </div>
     </div>
@@ -27,20 +31,26 @@
 //@ts-ignore
 import draggable from "vuedraggable";
 import Card from './Card.vue';
-import { ref, onMounted, watch } from "vue"
+import { ref, watch, PropType } from "vue"
 import type { CardType } from './Card.vue'
 
-const list = ref<CardType[]>([])
 const newCardName = ref('')
 const hasError = ref(false)
-const listName = ref('list name')
+const emit = defineEmits(['addNewList'])
 
-onMounted(() => {
-    list.value = [
-        { name: "John" },
-        { name: "Joao" },
 
-    ]
+function addList(before: boolean) {
+    emit('addNewList', { before, "listName": props.listName })
+}
+
+
+const props = defineProps({
+    listName: {
+        type: String
+    },
+    list: {
+        type: Object as PropType<CardType[]>
+    }
 })
 
 watch(newCardName, () => {
@@ -49,8 +59,7 @@ watch(newCardName, () => {
 
 function add() {
     if (newCardName.value) {
-
-        list.value.push({ name: newCardName.value });
+        props.list?.push({ name: newCardName.value });
         newCardName.value = ''
     } else {
         hasError.value = true
@@ -65,16 +74,37 @@ function add() {
     min-height: 200px;
     flex-shrink: 0;
 
+    &__list-group {
+        flex-grow: 1;
+        margin: 0 5px;
+    }
+
+    &__add-list {
+        display: flex;
+        background: rgb(151, 151, 151);
+        transition: all 0.2s;
+        width: 10px;
+        border-radius: 4px;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+
+
+        &:hover {
+            width: 20px;
+        }
+    }
+
     &__header {
-        margin-bottom: 10px ;
+        margin-bottom: 10px;
     }
 
     &__container {
-        padding: 20px 10px;
+        padding: 10px 2px;
         margin-right: 10px;
         border-radius: 4px;
         background: #c6c6c6;
-
+        display: flex;
     }
 
     &__add-button {
