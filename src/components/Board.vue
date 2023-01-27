@@ -1,6 +1,11 @@
 <template>
     <div class="board">
         <CardList></CardList>
+        <CardList></CardList>
+        <CardList></CardList>
+        <CardList></CardList>
+        <CardList></CardList>
+        <CardList></CardList>
     </div>
 </template>
 
@@ -10,6 +15,11 @@ import CardList from './CardList.vue';
 
 <style scoped lang="scss">
 .board {
-    color: black
+    display: flex;
+    flex-grow: 1;
+    overflow-x: auto;
+    flex-grow: 1;
+    height: 100%;
+    margin-bottom: 20px;
 }
 </style>

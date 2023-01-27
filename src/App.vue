@@ -13,6 +13,9 @@ import Board from './components/Board.vue'
 <style scoped lang="scss">
 .container {
   width: 1400px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 
   @media (max-width: 1400px) {
     width: 1200px;
