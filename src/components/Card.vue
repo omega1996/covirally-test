@@ -10,7 +10,6 @@ import { ref, PropType } from 'vue'
 
 export interface CardType {
     name: string,
-    id: number
 }
 
 const props = defineProps({

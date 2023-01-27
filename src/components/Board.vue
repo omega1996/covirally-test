@@ -3,9 +3,7 @@
         <CardList></CardList>
         <CardList></CardList>
         <CardList></CardList>
-        <CardList></CardList>
-        <CardList></CardList>
-        <CardList></CardList>
+
     </div>
 </template>
 
