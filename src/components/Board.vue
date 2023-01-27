@@ -1,6 +1,7 @@
 <template>
     <div class="board">
-        <CardList @addNewList="addNewList" v-for="board in boardData" :list="board.cardList" :listName="board.listName">
+        <CardList @saveName="changeCardName" @addNewList="addNewList" v-for="board in boardData" :list="board.cardList"
+            :listName="board.listName">
         </CardList>
     </div>
 </template>
@@ -15,8 +16,21 @@ interface ColumnType {
     listName: string
 }
 
+function changeCardName(event: any) {
+    const cardList = boardData.value?.find((element) => element.listName == event.old)
+    if (cardList) {
+        cardList.listName = event.new
+    }
+}
+
 function addNewList(event: any) {
-    console.log(event)
+    const index = boardData.value?.findIndex((element) => element.listName == event.name)
+    if (index !== -1 && index !== undefined) {
+        boardData.value?.splice(event.before ? index : index + 1, 0, {
+            cardList: [],
+            listName: "Новая карточка"
+        })
+    }
 }
 
 const boardData = ref<ColumnType[]>()
@@ -49,5 +63,7 @@ onMounted(() => {
     flex-grow: 1;
     height: 100%;
     margin-bottom: 20px;
+    box-sizing: border-box;
+    padding-bottom: 20px;
 }
 </style>

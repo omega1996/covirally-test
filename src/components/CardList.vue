@@ -7,7 +7,7 @@
             </div>
             <draggable animation="200" class="card-list__list-group" :list="list" group="people" itemKey="name">
                 <template #header>
-                    <div class="card-list__header">
+                    <div contenteditable="true" @blur="saveName" class="card-list__header">
 
                         {{ listName }}
                     </div>
@@ -36,13 +36,16 @@ import type { CardType } from './Card.vue'
 
 const newCardName = ref('')
 const hasError = ref(false)
-const emit = defineEmits(['addNewList'])
+const emit = defineEmits(['addNewList', 'saveName'])
 
 
 function addList(before: boolean) {
-    emit('addNewList', { before, "listName": props.listName })
+    emit('addNewList', { before, "name": props.listName })
 }
 
+function saveName(event: any) {
+    emit('saveName', { new: event.target.innerText, old: props.listName })
+}
 
 const props = defineProps({
     listName: {
@@ -73,6 +76,7 @@ function add() {
     width: 300px;
     min-height: 200px;
     flex-shrink: 0;
+
 
     &__list-group {
         flex-grow: 1;
@@ -105,6 +109,7 @@ function add() {
         border-radius: 4px;
         background: #c6c6c6;
         display: flex;
+        height: 100%;
     }
 
     &__add-button {
