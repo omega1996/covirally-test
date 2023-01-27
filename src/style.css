@@ -6,7 +6,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -30,6 +30,8 @@ body {
   display: flex;
   min-width: 320px;
   min-height: 100vh;
-  background-color: white;
   justify-content: center;
+  background-size: cover;
+  background-position: 50%;
+  background: url('https://trello-backgrounds.s3.amazonaws.com/SharedBackground/2386x1600/47f09f0e3910259568294477d0bdedac/photo-1576502200916-3808e07386a5.jpg');
 }
